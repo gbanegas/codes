@@ -9,8 +9,8 @@ def main():
     result= kara.karatsuba(pol_1, pol_2)
     kara.print_pol(result)
     print "Degree: ", len(pol_1)
-    #print "XORS: ", count_xor
-    #print "ANDs: ", count_and
+    print "XORS: ", kara.get_nr_xor()
+    print "ANDs: ", kara.get_nr_and()
 
 if __name__ == "__main__":
     main()

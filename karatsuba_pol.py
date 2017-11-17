@@ -7,6 +7,12 @@ class Karatsuba():
         self.count_xor = 0
         self.count_and = 0
 
+    def get_nr_xor(self):
+        return self.count_xor
+
+    def get_nr_and(self):
+        return self.count_and
+
     def print_pol(self,p1):
         st = ""
         for i in xrange(0,len(p1)):
@@ -25,6 +31,7 @@ class Karatsuba():
     def mult(self, a, b):
         d = [0]*(max(len(a),len(b)))
         d[0] = a[0] & b[0]
+        self.count_and = self.count_and+1
         return d
 
 
@@ -33,13 +40,14 @@ class Karatsuba():
             temp = [0]*(len(p2))
             for i in xrange(0,len(p2)):
                 temp[i] = ((p1[i] + p2[i]) %2)
-
+                self.count_xor = self.count_xor+1
             temp = temp + p1[len(p2):]
             return temp
         else:
             temp = [0]*(len(p1))
             for i in xrange(0,len(p1)):
                 temp[i] = ((p1[i] + p2[i]) %2)
+                self.count_xor = self.count_xor+1
             temp = temp + p2[len(p1):]
             return temp
 
