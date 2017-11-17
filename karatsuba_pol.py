@@ -82,16 +82,12 @@ def sum_pol(p1, p2):
         for i in xrange(0,len(p2)):
             temp[i] = ((p1[i] + p2[i]) %2)
         temp = temp + p1[len(p2):]
-        print "sum_pol:te{0}".format(temp)
-        print "sum_pol:p1{0}".format(p1)
         return temp
     else:
         temp = [0]*(len(p1))
         for i in xrange(0,len(p1)):
             temp[i] = ((p1[i] + p2[i]) %2)
         temp = temp + p2[len(p1):]
-        print "sum_pol:te{0}".format(temp)
-        print "sum_pol:p2{0}".format(p2)
         return temp
 
 def concat_pol(pol, m):
@@ -108,7 +104,7 @@ def karatsuba(pol_1, pol_2):
     max_deg_p1_p2 = max_degree(pol_1,pol_2)
     if DEBUG:
         print "karatsuba: p1:{0}, p2:{1}".format(pol_1,pol_2)
-    if (max_deg_p1_p2 < 3):
+    if (max_deg_p1_p2 < 2):
         return mult(pol_1, pol_2)
 
     m = int(math.floor(float(max_deg_p1_p2)/float(2)))
@@ -144,21 +140,21 @@ def karatsuba(pol_1, pol_2):
         print "karatsuba::z0:{0}, temp_4:{1}, z2:{2}".format(z0, temp_4,z2)
 
     concat_1 = (concat_pol(temp_4, m))
-    print "concat_1:{0}".format(concat_1)
-    print_pol(concat_1)
+#    print "concat_1:{0}".format(concat_1)
+#    print_pol(concat_1)
     concat_2 = concat_pol(z2,(2*m))
-    print "concat_2:{0}".format(concat_2)
-    print_pol(concat_2)
+#    print "concat_2:{0}".format(concat_2)
+#    print_pol(concat_2)
     sum_1 = sum_pol(z0, concat_1)
     sum_2 = sum_pol(sum_1, concat_2)
     result  = z0 + temp_4 + z2
-    return result
+    return sum_2
 
     #return (z0 +  (concat_pol(temp_4, m)) + concat_pol(z2,(2*m)))
 
 pol_1 = [1,1,1,1]
 print_pol(pol_1)
-pol_2 = [1,1,1,0]
+pol_2 = [1,1,1,1]
 print_pol(pol_2)
 result = karatsuba(pol_1, pol_2)
 print_pol(result)
