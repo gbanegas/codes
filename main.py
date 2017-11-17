@@ -2,9 +2,9 @@ from karatsuba_pol import *
 
 def main():
     kara = Karatsuba()
-    pol_1 = [0,1,1,1]
+    pol_1 = [1,1,1,1]
     kara.print_pol(pol_1)
-    pol_2 = [1,0,0,1]
+    pol_2 = [1,1,1,1]
     kara.print_pol(pol_2)
     result= kara.karatsuba(pol_1, pol_2)
     kara.print_pol(result)

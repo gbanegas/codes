@@ -23,61 +23,9 @@ class Karatsuba():
         return max(len(pol_1), len(pol_2))
 
     def mult(self, a, b):
-        m = max(len(b), len(a))
-        d = [0]*(2*m-1) #[0...2m-2]
-        a_by_b = [[0 for x in range((2*m)-1)] for y in range((2*m)-1)]
-        #print "polynom_multiplier: a:{0}, b:{1}, m:{2}".format(a,b,m)
-        if DEBUG:
-            print "polynom_multiplier: a:{0}, b:{1}, m:{2}".format(a,b,m)
-
-        if(len(a) > 0 and len(b) > 0):
-            #gen_ands:
-            for k in xrange(0,m): # 0...m-1
-                for i in xrange(0,k+1):#0...k
-                    if DEBUG:
-                        print "k:{0}:a[{1}]:{2} b[{3}]:{4} a_by_b[{5}][{6}]:{7}".format(k,i,a[i],(k-i),b[k-i],k, i,(a[i] & b[k-i]))
-                    a_by_b[k][i] = a[i] & b[k-i]
-
-
-            #gen_ands2:
-            if DEBUG:
-                print " "
-            for k in xrange(m,(2*m)-1): # m...2*m-2
-                for i in xrange(k, (2*m)-1):#k...2*m-2
-                    if DEBUG:
-                        print "k:{0}:a[{1}]:{2} b[{3}]:{4} a_by_b[{5}][{6}]:{7}".format(k,(k-i+(m-1)),a[k-i+(m-1)],(i-(m-1)),b[i-(m-1)],k, i,(a[k-i+(m-1)] & b[i-(m-1)]))
-                    a_by_b[k][i] = a[k-i+(m-1)] & b[i-(m-1)]
-            if DEBUG:
-                print " "
-            d[0] = a_by_b[0][0]
-
-            for k in xrange(1,(2*m-1)):# 1...2*m-2
-                aux = 0
-                if(k < m):
-                    aux = a_by_b[k][0]
-                    for i in xrange(1,k+1): #1...k
-                        if DEBUG:
-                            print "aux:{0} ^ a_by_b[{1}][{2}]:{3}".format(aux, k,i,a_by_b[k][i])
-                        aux = aux ^ a_by_b[k][i]
-
-                        if DEBUG:
-                            print "aux:{0}".format(aux)
-                else:
-                    aux = a_by_b[k][k]
-                    for i in xrange(k+1,(2*m-1)):#k+1 ... 2m-2
-                        if DEBUG:
-                            print "aux:{0} ^ a_by_b[{1}][{2}]:{3}".format(aux, k,i,a_by_b[k][i])
-                        aux = aux ^ a_by_b[k][i]
-
-                        if DEBUG:
-                            print "aux:{0}".format(aux)
-
-                if DEBUG:
-                    print "d[{0}] = {1}".format(k,aux)
-                d[k] = aux
-
-            #print d
-            return d
+        d = [0]*(max(len(a),len(b)))
+        d[0] = a[0] & b[0]
+        return d
 
 
     def sum_pol(self,p1, p2):
