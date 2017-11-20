@@ -36,7 +36,7 @@ class Karatsuba():
 
 
     def sum_pol(self,p1, p2):
-        if len(p1) == max(p1,p2):
+        if len(p1)> len(p2):
             temp = [0]*(len(p2))
             for i in xrange(0,len(p2)):
                 temp[i] = ((p1[i] + p2[i]) %2)
@@ -45,6 +45,7 @@ class Karatsuba():
             return temp
         else:
             temp = [0]*(len(p1))
+
             for i in xrange(0,len(p1)):
                 temp[i] = ((p1[i] + p2[i]) %2)
                 self.count_xor = self.count_xor+1
