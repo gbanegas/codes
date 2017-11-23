@@ -1,7 +1,7 @@
 import math
 DEBUG = 0
 class Karatsuba():
-    #DEBUG = 0
+
 
     def __init__(self):
         self.count_xor = 0
@@ -13,8 +13,11 @@ class Karatsuba():
     def get_nr_and(self):
         return self.count_and
 
+
     def print_pol(self,p1):
-        st = ""
+        """ Print polynomials in a human readable way.
+        """
+        st = " "
         for i in xrange(0,len(p1)):
             if p1[i]:
                 st = st + "x^"+str(i) + "+"
@@ -24,11 +27,22 @@ class Karatsuba():
         else:
             print "0"
 
+    def concat_pol(self,pol, m):
+        to_append = [0]*m
+        return (to_append + pol)
+
 
     def max_degree(self,pol_1,pol_2):
+        """ Return the highest degree
+             between polynomial 1 and polynomial 2
+        """
         return max(len(pol_1), len(pol_2))
 
     def mult(self, a, b):
+        """ Return the multiplication between A and B.
+        It is just one bit at the time.
+        always multiplying a[0] & b[0].
+        """
         d = [0]*(max(len(a),len(b)))
         d[0] = a[0] & b[0]
         self.count_and = self.count_and+1
@@ -36,6 +50,13 @@ class Karatsuba():
 
 
     def sum_pol(self,p1, p2):
+        """ Return the sum between P1 and P2.
+        The sum in F_2 is a xor operation.
+        So we just perform the xor operation when it is needed
+        p1 = [1,1,1,1,1]
+        p2 = [1,0,0]
+        res= [0,1,1,1,1]
+        """
         if len(p1)> len(p2):
             temp = [0]*(len(p2))
             for i in xrange(0,len(p2)):
@@ -52,13 +73,10 @@ class Karatsuba():
             temp = temp + p2[len(p1):]
             return temp
 
-    def concat_pol(self,pol, m):
-        #print m
-        to_append = [0]*m
-        return (to_append + pol)
-
     def split_at(self,pol, m):
-        #print pol
+        """ Return the split polynomial in high and low part.
+        Where m = floor(max_degree)
+        """
         return pol[m:], pol[:m]
 
     def karatsuba(self,pol_1, pol_2):
